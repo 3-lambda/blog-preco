@@ -1,0 +1,22 @@
+
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.listaContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.page-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h6 {
+	color: #666666
+}
