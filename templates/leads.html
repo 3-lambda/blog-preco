@@ -37,12 +37,16 @@
 							<tr>
 								<th class="mdl-data-table__cell--non-numeric">Nome</th>
 								<th class="mdl-data-table__cell--non-numeric">Email</th>
+								<th class="mdl-data-table__cell--non-numeric">Data</th>
+								<th class="mdl-data-table__cell--non-numeric">Ip</th>
 							</tr>
 						</thead>
 						<tbody ng-view>
 							<tr ng-repeat="cliente in clientes">
 								<td class="mdl-data-table__cell--non-numeric">//cliente['nome']//</td>
 								<td class="mdl-data-table__cell--non-numeric">//cliente['email']//</td>
+								<td class="mdl-data-table__cell--non-numeric">//cliente['data']//</td>
+								<td class="mdl-data-table__cell--non-numeric">//cliente['ip']//</td>
 							</tr>
 						</tbody>
 					</table>

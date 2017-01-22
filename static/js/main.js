@@ -12,6 +12,18 @@ myApp.controller('BlogCtrl',
 					form: $scope.form
 				}
 			})
+			$scope.show_clientes()
+		}
+
+		$scope.addConteudo = function(){
+			$http({
+				method: 'POST',
+				url: '/insert_conteudo',
+				data: {
+					form: $scope.form
+				}
+			})
+			$scope.show_conteudo()
 		}
 
 		$scope.show_posts = function() {
@@ -37,6 +49,7 @@ myApp.controller('BlogCtrl',
 		}
 
 		$scope.show_clientes()
+		$scope.show_posts()
 	}
 )
 .config(function($interpolateProvider) {

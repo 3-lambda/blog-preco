@@ -1,13 +1,13 @@
 from flask import Flask, render_template, jsonify, request, json
 from validate_email import validate_email
 from pymongo import MongoClient
-import datetime
+from datetime import datetime
 
 
 app = Flask(__name__, static_url_path='/static')
 
 client = MongoClient('localhost:27017')
-db = client.teste_db
+db = client.gama_db
 
 @app.route('/', methods=['GET'])
 def mostrarPosts():
@@ -20,6 +20,10 @@ def mostrarClientes():
 	clientes = get_clientes()
 	return render_template('leads.html', clientes=clientes)
 
+@app.route('/editor')
+def mostrarEditor():
+	return render_template('editor.html')
+
 @app.route('/get_posts', methods=['GET'])
 def get_posts():
 	try:
@@ -27,9 +31,10 @@ def get_posts():
 		posts_list = []
 		for post in posts_db:
 			posts_list.append({
-					'nome': post['nome'],
-					'texto': post['texto'],
-					'data': post['data']
+					'titulo': post['titulo'],
+					'conteudo': post['conteudo'],
+					# 'data_de_publicacao': post['data_de_publicacao'],
+					'autor': post['autor']
 			})
 	except Exception, e:
 		return jsonify(status='error', message=str(e))
@@ -41,25 +46,40 @@ def insert_cliente():
 	is_valid = validate_email(json_data['email'])
 
 	def is_registered(clientes):
-		for cliente in clientes:
-			if (cliente['email'] == json_data['email']):
-				return false
-		return true
+		if json_data['email'] in clientes:
+				return False
+		return True
 
 	clientes = get_clientes()
-	if (is_valid and len(json_data['email']) >= 5 and len(json_data['nome']) >= 3 and is_registered(clientes)):
+	if (is_valid and len(json_data['email']) >= 5 and
+	len(json_data['nome']) >= 3 and is_registered(clientes)):
 		try:
 			json_data = request.json['form']
 			nome = json_data['nome']
 			email = json_data['email']
 			pessoa_id = db.clientes.insert_one({
-				'nome': nome, 'email': email, 'data': datetime.datetime.now()
+				'nome': nome, 'email': email, 'data': datetime.utcnow(), 'ip': request.remote_addr
 				})
 			return jsonify(status='ok', message='Inserido corretamente')
 		except Exception, e:
 			return jsonify(status='error', message=str(e))
 	else:
 		return jsonify(status='error', message='Cadastro invalido!')
+
+@app.route('/insert_conteudo', methods=['POST'])
+def insert_conteudo():
+	json_data = request.json['form']
+	try:
+		json_data = request.json['form']
+		conteudo = json_data['conteudo']
+		titulo = json_data['titulo']
+		autor = json_data['autor']
+		pessoa_id = db.posts.insert_one({
+			'conteudo': conteudo, 'titulo': titulo, 'autor': autor, 'data_de_publicacao': datetime.utcnow()
+			})
+		return jsonify(status='ok', message='Inserido corretamente')
+	except Exception, e:
+		return jsonify(status='error', message=str(e))
 
 @app.route('/get_clientes', methods=['GET'])
 def get_clientes():
@@ -70,7 +90,8 @@ def get_clientes():
 			clientes_list.append({
 					'nome': cliente['nome'],
 					'email': cliente['email'],
-					# 'data': cliente['data']
+					'data': cliente['data'],
+					'ip': cliente['ip']
 			})
 	except Exception, e:
 		return jsonify(status='error', message=str(e))

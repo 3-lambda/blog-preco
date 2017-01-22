@@ -5,16 +5,13 @@
 	align-items: center;
 }
 
-.listaContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.post {
+	text-align: center
 }
 
-.page-content {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+textarea {
+	width: 150%;
+	height: 50%;
 }
 
 h6 {
