@@ -42,12 +42,14 @@
 							</tr>
 						</thead>
 						<tbody ng-view>
+							{% for lead in leads %}
 							<tr ng-repeat="lead in leads">
-								<td class="mdl-data-table__cell--non-numeric">//lead['nome']//</td>
-								<td class="mdl-data-table__cell--non-numeric">//lead['email']//</td>
-								<td class="mdl-data-table__cell--non-numeric">//lead['data']//</td>
-								<td class="mdl-data-table__cell--non-numeric">//lead['ip']//</td>
+								<td class="mdl-data-table__cell--non-numeric">{{lead.nome}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{lead.email}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{lead.data}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{lead.ip}}</td>
 							</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>

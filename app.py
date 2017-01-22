@@ -1,24 +1,43 @@
 from validate_email import validate_email
-from pymongo import MongoClient
 from datetime import datetime
 from bson.json_util import dumps
 from flask import Flask, render_template, redirect, url_for, request, jsonify, json
 from urlparse import urlparse, urljoin
-from flask import request, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path='/static')
-ADMIN_PASSWORD = 'gama'
-client = MongoClient('localhost:27017')
-db = client.gama_db
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.sqlite3'
+db = SQLAlchemy(app)
+
+class Leads(db.Model):
+   id = db.Column('lead_id', db.Integer, primary_key = True)
+   nome = db.Column(db.String(100))
+   email = db.Column(db.String(200))
+   data = db.Column(db.String(200))
+   ip = db.Column(db.Integer)
+
+class Posts(db.Model):
+   id = db.Column('pead_id', db.Integer, primary_key = True)
+   titulo = db.Column(db.String(100))
+   conteudo = db.Column(db.String(500))
+   autor = db.Column(db.String(100))
+   data = db.Column(db.String(200))
+
+
+def __init__(self, name, city, addr,pin):
+   self.nome = nome
+   self.email = email
+
+db.create_all()
 
 @app.route('/', methods=['GET'])
 def mostrarPosts():
-	posts = json.loads(get_posts())
+	posts = Posts.query.all()
 	return render_template('index.html', posts=posts)
 
 @app.route('/leads')
-def leads():
-	leads = get_leads()
+def mostrarLeads():
+	leads = Leads.query.all()
 	return render_template('leads.html', leads=leads)
 
 @app.route('/editor')
@@ -37,7 +56,7 @@ def get_post(post_id):
 @app.route('/get_posts', methods=['GET'])
 def get_posts():
 	try:
-		posts_db = db.posts.find()
+		posts_db = Posts.query.all()
 		posts_list = []
 		for post in posts_db:
 			posts_list.append({
@@ -60,16 +79,16 @@ def insert_lead():
 				return False
 		return True
 
-	leads = get_leads()
+	leads = Leads.query.all()
 	if (is_valid and len(json_data['email']) >= 5 and
 	len(json_data['nome']) >= 3 and is_registered(leads)):
 		try:
 			json_data = request.json['form']
 			nome = json_data['nome']
 			email = json_data['email']
-			pessoa_id = db.leads.insert_one({
-				'nome': nome, 'email': email, 'data': datetime.utcnow(), 'ip': request.remote_addr
-				})
+			leads = Leads(nome, email, datetime.utcnow(), request.remote_addr)
+			db.session.add(leads)
+			db.session.commit()
 			return jsonify(status='ok', message='Inserido corretamente')
 		except Exception, e:
 			return jsonify(status='error', message=str(e))
@@ -84,10 +103,9 @@ def insert_conteudo():
 		conteudo = json_data['conteudo']
 		titulo = json_data['titulo']
 		autor = json_data['autor']
-		imagem = json_data['imagem']
-		pessoa_id = db.posts.insert_one({
-			'conteudo': conteudo, 'titulo': titulo, 'autor': autor, 'data_de_publicacao': datetime.utcnow()
-			})
+		post = Posts(conteudo, titulo, autor, datetime.utcnow())
+		db.session.add(post)
+		db.session.commit()
 		return jsonify(status='ok', message='Inserido corretamente')
 	except Exception, e:
 		return jsonify(status='error', message=str(e))
@@ -95,7 +113,7 @@ def insert_conteudo():
 @app.route('/get_leads', methods=['GET'])
 def get_leads():
 	try:
-		leads_db = db.leads.find()
+		leads_db = Leads.query.all()
 		leads_list = []
 		for lead in leads_db:
 			leads_list.append({

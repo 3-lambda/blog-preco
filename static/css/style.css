@@ -1,12 +1,13 @@
 
-.formContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.post {
+	text-align: center;
 }
 
-.post {
-	text-align: center
+.page-content {
+	display: flex;
+	align-content: center;
+	flex-flow: nowrap column ;
+	align-items: center;
 }
 
 textarea {
@@ -14,6 +15,28 @@ textarea {
 	height: 50%;
 }
 
+.container {
+	margin: 3%;
+}
+
+.btn {
+  display:block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid red;
+
+}
+
+body {
+	font-style: 'Gothan Bold';
+	background-color: aliceblue;
+	text-align: center;
+}
 h6 {
 	color: #666666
+}
+
+h4 {
+	color: lightblue;
 }

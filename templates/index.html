@@ -16,8 +16,30 @@
 		</header>
 
 		<main class="mdl-layout__content">
-			<div class="page-content mdl-grid">
+			<div class="page-content">
 
+			{% include "_assine.html" %}
+
+			 <div class="container">
+				<h4>RECEBA NOSSOS DOWNLOADS</h4>
+				<button type="button" class="btn btn-default btn-lg">
+				  <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-object-align-vertical" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+				</button>
+			</div>
+
+				<div class="container">
 				{% for post in posts %}
 				<div class="listaContainer mdl-cell mdl-cell--12-col">
 							<div class="post">
@@ -29,7 +51,7 @@
 				{% endfor %}
 
 				{% include "_assine.html" %}
-			</div>
+
 		</main>
 	</div>
 </body>

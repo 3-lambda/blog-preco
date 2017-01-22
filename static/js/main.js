@@ -4,7 +4,9 @@ let myApp = angular.module('BlogApp', [])
 
 myApp.controller('BlogCtrl',
 	function($scope, $http) {
+
 		$scope.addLead = function(){
+			console.log('cu')
 			$http({
 				method: 'POST',
 				url: '/insert_lead',
