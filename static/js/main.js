@@ -4,10 +4,10 @@ let myApp = angular.module('BlogApp', [])
 
 myApp.controller('BlogCtrl',
 	function($scope, $http) {
-		$scope.addCliente = function(){
+		$scope.addLead = function(){
 			$http({
 				method: 'POST',
-				url: '/insert_cliente',
+				url: '/insert_lead',
 				data: {
 					form: $scope.form
 				}
@@ -47,18 +47,18 @@ myApp.controller('BlogCtrl',
 		}
 
 
-		$scope.show_clientes = function() {
+		$scope.show_leads = function() {
 			$http({
 				method: 'GET',
-				url: '/get_clientes'
+				url: '/get_leads'
 			}).then(function(response) {
-				$scope.clientes = response.data
+				$scope.leads = response.data
 			}, function(error) {
 				console.log(error)
 			})
 		}
 
-		$scope.show_clientes()
+		$scope.show_leads()
 		$scope.show_posts()
 	}
 )

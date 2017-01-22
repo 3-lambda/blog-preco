@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Leads</title>
+	<title>leads</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
@@ -24,14 +24,14 @@
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Leads</span>
+				<span class="mdl-layout-title">leads</span>
 				<div class="mdl-layout-spacer"></div>
 			</div>
 		</header>
 		<main class="mdl-layout__content">
 			<div class="page-content mdl-grid">
 				<div class="listaContainer mdl-cell mdl-cell--6-col">
-					<h6>Leads</h6>
+					<h6>leads</h6>
 					<table class="mdl-data-table">
 						<thead>
 							<tr>
@@ -42,11 +42,11 @@
 							</tr>
 						</thead>
 						<tbody ng-view>
-							<tr ng-repeat="cliente in clientes">
-								<td class="mdl-data-table__cell--non-numeric">//cliente['nome']//</td>
-								<td class="mdl-data-table__cell--non-numeric">//cliente['email']//</td>
-								<td class="mdl-data-table__cell--non-numeric">//cliente['data']//</td>
-								<td class="mdl-data-table__cell--non-numeric">//cliente['ip']//</td>
+							<tr ng-repeat="lead in leads">
+								<td class="mdl-data-table__cell--non-numeric">//lead['nome']//</td>
+								<td class="mdl-data-table__cell--non-numeric">//lead['email']//</td>
+								<td class="mdl-data-table__cell--non-numeric">//lead['data']//</td>
+								<td class="mdl-data-table__cell--non-numeric">//lead['ip']//</td>
 							</tr>
 						</tbody>
 					</table>

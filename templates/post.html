@@ -8,7 +8,6 @@
 
 	<title>Blog</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	<!-- <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"> -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
 	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -35,11 +34,10 @@
 				<div class="listaContainer mdl-cell mdl-cell--12-col">
 							<div class="post">
 								<h4>{{ post['titulo'] }}</h4>
-								<p><i>Conteudo por {{ post['autor'] }}</i></p>
+								<p><i>Conteudo por {{ post['autor'] }} - {{ post['data_de_publicacao']}}</i></p>
 								<p>{{ post['conteudo'] }}</p>
 							</div>
 				</div>
-
 			</div>
 		</main>
 	</div>
