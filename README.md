@@ -1,6 +1,10 @@
 #Blog
 
+###Como instalar
+Abra a pasta do repositorio no terminal e rode
+`pip install -r requirements.txt`
 ###Como rodar:
+Em dois terminais diferentes rode
 `mongod`
 
 `python app.py`
