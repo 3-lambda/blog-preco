@@ -6,9 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Conteudo</title>
-
+	<title>Blog</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<!-- <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"> -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
 	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
@@ -18,35 +19,28 @@
 
 </head>
 
+
+
 <body ng-controller="BlogCtrl">
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Conteudo</span>
+				<span class="mdl-layout-title">Blog</span>
 				<div class="mdl-layout-spacer"></div>
 			</div>
 		</header>
 		<main class="mdl-layout__content">
 			<div class="page-content mdl-grid">
-        <form role="form" class="formContainer mdl-cell mdl-cell--12-col">
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" ng-model="form.titulo" type="text" id="titulo">
-          <label class="mdl-textfield__label" for="titulo">titulo...</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-          <textarea class="mdl-textfield__input" rows="3" ng-model="form.conteudo" type="text" id="conteudo">conteudo..</textarea>
-          <label class="mdl-textfield__label" for="conteudo">conteudo...</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" ng-model="form.autor" type="text" id="autor">
-          <label class="mdl-textfield__label" for="autor">autor...</label>
-        </div>
-        <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" id="submit" ng-click="addConteudo()"></input>
 
-        </form>
+				<div class="listaContainer mdl-cell mdl-cell--12-col">
+							<div class="post">
+								<h4>{{ post['titulo'] }}</h4>
+								<p><i>Conteudo por {{ post['autor'] }}</i></p>
+								<p>{{ post['conteudo'] }}</p>
+							</div>
+				</div>
+
 			</div>
-
-
 		</main>
 	</div>
 </body>

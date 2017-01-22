@@ -28,9 +28,21 @@
 				<div class="mdl-layout-spacer"></div>
 			</div>
 		</header>
+
 		<main class="mdl-layout__content">
 			<div class="page-content mdl-grid">
-
+				<form role="form" class="formContainer mdl-cell mdl-cell--12-col">
+				<h6>Login</h6>
+							<div class="mdl-textfield mdl-js-textfield">
+								<input class="mdl-textfield__input" ng-model="form.nome" type="text" id="nome">
+								<label class="mdl-textfield__label" for="nome">Login</label>
+							</div>
+							<div class="mdl-textfield mdl-js-textfield">
+								<input class="mdl-textfield__input" ng-model="form.email" type="text" id="email">
+								<label class="mdl-textfield__label" for="email">E-mail</label>
+							</div>
+							<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" id="submit" ng-click="addCliente()"></input>
+				</form>
 				<div class="listaContainer mdl-cell mdl-cell--12-col">
 							<div class="post" ng-repeat="post in posts">
 								<h4>//post['titulo']//</h4>

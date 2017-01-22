@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request, json
 from validate_email import validate_email
 from pymongo import MongoClient
 from datetime import datetime
-
+from bson.json_util import dumps
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -24,6 +24,15 @@ def mostrarClientes():
 def mostrarEditor():
 	return render_template('editor.html')
 
+@app.route('/post/<int:post_id>', methods=['GET'])
+def get_post(post_id):
+	try:
+		post = get_posts()
+		post = json.loads(post)[int(post_id)]
+	except Exception, e:
+		return jsonify(status='error', message=str(e))
+	return render_template('post.html', post=post)
+
 @app.route('/get_posts', methods=['GET'])
 def get_posts():
 	try:
@@ -31,9 +40,10 @@ def get_posts():
 		posts_list = []
 		for post in posts_db:
 			posts_list.append({
+					'id': post['id'],
 					'titulo': post['titulo'],
 					'conteudo': post['conteudo'],
-					# 'data_de_publicacao': post['data_de_publicacao'],
+					'data_de_publicacao': post['data_de_publicacao'],
 					'autor': post['autor']
 			})
 	except Exception, e:
@@ -74,8 +84,9 @@ def insert_conteudo():
 		conteudo = json_data['conteudo']
 		titulo = json_data['titulo']
 		autor = json_data['autor']
+		id_post = db.posts.count() + 1
 		pessoa_id = db.posts.insert_one({
-			'conteudo': conteudo, 'titulo': titulo, 'autor': autor, 'data_de_publicacao': datetime.utcnow()
+			'id': id_post,'conteudo': conteudo, 'titulo': titulo, 'autor': autor, 'data_de_publicacao': datetime.utcnow()
 			})
 		return jsonify(status='ok', message='Inserido corretamente')
 	except Exception, e:

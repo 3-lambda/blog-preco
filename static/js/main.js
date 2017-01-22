@@ -12,7 +12,6 @@ myApp.controller('BlogCtrl',
 					form: $scope.form
 				}
 			})
-			$scope.show_clientes()
 		}
 
 		$scope.addConteudo = function(){
@@ -23,7 +22,6 @@ myApp.controller('BlogCtrl',
 					form: $scope.form
 				}
 			})
-			$scope.show_conteudo()
 		}
 
 		$scope.show_posts = function() {
@@ -36,6 +34,18 @@ myApp.controller('BlogCtrl',
 				console.log(error)
 			})
 		}
+
+		$scope.show_post = function() {
+			$http({
+				method: 'GET',
+				url: '/get_post/<int:post_id>'
+			}).then(function(response) {
+				$scope.post = response.data
+			}, function(error) {
+				console.log(error)
+			})
+		}
+
 
 		$scope.show_clientes = function() {
 			$http({
